@@ -1,5 +1,5 @@
 {
-  "name": "ethereumjs-wallet",
+  "name": "@yqrashawn/confluxjs-wallet",
   "version": "0.6.3",
   "description": "Utilities for handling Ethereum keys",
   "main": "dist/index.js",
@@ -29,7 +29,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethereumjs/ethereumjs-wallet.git"
+    "url": "https://github.com/yqrashawn/confluxjs-wallet.git"
   },
   "keywords": [
     "ethereum",
@@ -39,13 +39,14 @@
   "author": "Alex Beregszaszi <alex@rtfs.hu>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethereumjs/ethereumjs-wallet/issues"
+    "url": "https://github.com/yqrashawn/confluxjs-wallet/issues"
   },
-  "homepage": "https://github.com/ethereumjs/ethereumjs-wallet",
+  "homepage": "https://github.com/yqrashawn/confluxjs-wallet",
   "dependencies": {
+    "@types/secp256k1": "^3.5.3",
+    "@yqrashawn/confluxjs-util": "^6.2.1",
     "aes-js": "^3.1.1",
     "bs58check": "^2.1.2",
-    "ethereumjs-util": "^6.0.0",
     "hdkey": "^1.1.1",
     "randombytes": "^2.0.6",
     "scrypt.js": "^0.3.0",

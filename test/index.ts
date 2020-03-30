@@ -1,6 +1,6 @@
 /* tslint:disable no-invalid-this */
 import * as assert from 'assert'
-import * as ethUtil from 'ethereumjs-util'
+import * as ethUtil from '@yqrashawn/confluxjs-util'
 import { Wallet as ethersWallet } from 'ethers'
 
 const zip = require('lodash.zip')
@@ -57,7 +57,7 @@ describe('.getAddress()', function() {
   it('should work', function() {
     assert.strictEqual(
       fixtureWallet.getAddress().toString('hex'),
-      'b14ab53e38da1c172f877dbc6d65e4a1b0474c3c',
+      '114ab53e38da1c172f877dbc6d65e4a1b0474c3c',
     )
   })
 })
@@ -66,16 +66,17 @@ describe('.getAddressString()', function() {
   it('should work', function() {
     assert.strictEqual(
       fixtureWallet.getAddressString(),
-      '0xb14ab53e38da1c172f877dbc6d65e4a1b0474c3c',
+      '0x114ab53e38da1c172f877dbc6d65e4a1b0474c3c',
     )
   })
 })
 
 describe('.getChecksumAddressString()', function() {
   it('should work', function() {
+    console.log(fixtureWallet.getChecksumAddressString())
     assert.strictEqual(
       fixtureWallet.getChecksumAddressString(),
-      '0xB14Ab53E38DA1C172f877DBC6d65e4a1B0474C3c',
+      '0x114Ab53E38da1C172F877DBC6d65E4A1B0474c3C',
     )
   })
 })
@@ -114,7 +115,7 @@ describe('public key only wallet', function() {
       Wallet.fromPublicKey(pubKey)
         .getAddress()
         .toString('hex'),
-      'b14ab53e38da1c172f877dbc6d65e4a1b0474c3c',
+      '114ab53e38da1c172f877dbc6d65e4a1b0474c3c',
     )
   })
   it('.getPrivateKey() should fail', function() {
@@ -135,7 +136,7 @@ describe('.fromExtendedPrivateKey()', function() {
       'xprv9s21ZrQH143K4KqQx9Zrf1eN8EaPQVFxM2Ast8mdHn7GKiDWzNEyNdduJhWXToy8MpkGcKjxeFWd8oBSvsz4PCYamxR7TX49pSpp3bmHVAY'
     assert.strictEqual(
       Wallet.fromExtendedPrivateKey(xprv).getAddressString(),
-      '0xb800bf5435f67c7ee7d83c3a863269969a57c57c',
+      '0x1800bf5435f67c7ee7d83c3a863269969a57c57c',
     )
   })
 })
@@ -146,7 +147,7 @@ describe('.fromExtendedPublicKey()', function() {
       'xpub661MyMwAqRbcGout4B6s29b6gGQsowyoiF6UgXBEr7eFCWYfXuZDvRxP9zEh1Kwq3TLqDQMbkbaRpSnoC28oWvjLeshoQz1StZ9YHM1EpcJ'
     assert.strictEqual(
       Wallet.fromExtendedPublicKey(xpub).getAddressString(),
-      '0xb800bf5435f67c7ee7d83c3a863269969a57c57c',
+      '0x1800bf5435f67c7ee7d83c3a863269969a57c57c',
     )
   })
 })
@@ -297,12 +298,14 @@ describe('.toV3()', function() {
           p: p,
         })
 
-        const encFixtureEthersWallet = (await fixtureEthersWallet.encrypt(pw, {
-          scrypt: { N: n, r: r, p: p },
-          salt: ethersOpts.salt,
-          iv: ethersOpts.iv,
-          uuid: ethersOpts.uuid,
-        })).toLowerCase()
+        const encFixtureEthersWallet = (
+          await fixtureEthersWallet.encrypt(pw, {
+            scrypt: { N: n, r: r, p: p },
+            salt: ethersOpts.salt,
+            iv: ethersOpts.iv,
+            uuid: ethersOpts.uuid,
+          })
+        ).toLowerCase()
 
         const encRandomWallet = wRandom.toV3String(pw, {
           kdf: 'scrypt',
@@ -314,12 +317,14 @@ describe('.toV3()', function() {
           p: p,
         })
 
-        const encEthersWallet = (await wEthers.encrypt(pw, {
-          scrypt: { N: n, r: r, p: p },
-          salt: ethersOpts.salt,
-          iv: ethersOpts.iv,
-          uuid: ethersOpts.uuid,
-        })).toLowerCase()
+        const encEthersWallet = (
+          await wEthers.encrypt(pw, {
+            scrypt: { N: n, r: r, p: p },
+            salt: ethersOpts.salt,
+            iv: ethersOpts.iv,
+            uuid: ethersOpts.uuid,
+          })
+        ).toLowerCase()
 
         assert.deepStrictEqual(JSON.parse(wStatic), JSON.parse(encFixtureWallet))
         assert.deepStrictEqual(JSON.parse(wStatic), JSON.parse(encFixtureEthersWallet))

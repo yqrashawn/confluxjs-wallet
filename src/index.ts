@@ -1,5 +1,5 @@
 import * as crypto from 'crypto'
-import * as ethUtil from 'ethereumjs-util'
+import * as ethUtil from '@yqrashawn/confluxjs-util'
 
 const bs58check = require('bs58check')
 const randomBytes = require('randombytes')
