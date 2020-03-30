@@ -1,5 +1,5 @@
 import * as crypto from 'crypto'
-import * as ethUtil from '@yqrashawn/confluxjs-util'
+import * as ethUtil from 'cfx-util'
 
 const bs58check = require('bs58check')
 const randomBytes = require('randombytes')
@@ -243,18 +243,19 @@ export default class Wallet {
 
   // static methods
 
-  public static generate(icapDirect: boolean = false): Wallet {
-    if (icapDirect) {
-      const max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
-      while (true) {
-        const privateKey = randomBytes(32)
-        if (new ethUtil.BN(ethUtil.privateToAddress(privateKey)).lte(max)) {
-          return new Wallet(privateKey)
-        }
-      }
-    } else {
-      return new Wallet(randomBytes(32))
-    }
+  public static generate(): // icapDirect: boolean = false
+  Wallet {
+    // if (icapDirect) {
+    //   const max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
+    //   while (true) {
+    //     const privateKey = randomBytes(32)
+    //     if (new ethUtil.BN(ethUtil.privateToAddress(privateKey)).lte(max)) {
+    //       return new Wallet(privateKey)
+    //     }
+    //   }
+    // } else {
+    return new Wallet(randomBytes(32))
+    // }
   }
 
   public static generateVanityAddress(pattern: RegExp | string): Wallet {

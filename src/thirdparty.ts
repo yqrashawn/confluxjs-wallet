@@ -1,5 +1,5 @@
 import * as crypto from 'crypto'
-import * as ethUtil from '@yqrashawn/confluxjs-util'
+import * as ethUtil from 'cfx-util'
 
 import Wallet from './index'
 

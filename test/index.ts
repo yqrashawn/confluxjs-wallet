@@ -1,6 +1,6 @@
 /* tslint:disable no-invalid-this */
 import * as assert from 'assert'
-import * as ethUtil from '@yqrashawn/confluxjs-util'
+// import * as ethUtil from 'cfx-util'
 import { Wallet as ethersWallet } from 'ethers'
 
 const zip = require('lodash.zip')
@@ -73,7 +73,6 @@ describe('.getAddressString()', function() {
 
 describe('.getChecksumAddressString()', function() {
   it('should work', function() {
-    console.log(fixtureWallet.getChecksumAddressString())
     assert.strictEqual(
       fixtureWallet.getChecksumAddressString(),
       '0x114Ab53E38da1C172F877DBC6d65E4A1B0474c3C',
@@ -156,15 +155,15 @@ describe('.generate()', function() {
   it('should generate an account', function() {
     assert.strictEqual(Wallet.generate().getPrivateKey().length, 32)
   })
-  it('should generate an account compatible with ICAP Direct', function() {
-    const max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
-    const wallet = Wallet.generate(true)
-    assert.strictEqual(wallet.getPrivateKey().length, 32)
-    assert.strictEqual(new ethUtil.BN(wallet.getAddress()).lte(max), true)
-  })
+  // it.skip('should generate an account compatible with ICAP Direct', function() {
+  //   const max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
+  //   const wallet = Wallet.generate(true)
+  //   assert.strictEqual(wallet.getPrivateKey().length, 32)
+  //   assert.strictEqual(new ethUtil.BN(wallet.getAddress()).lte(max), true)
+  // })
 })
 
-describe('.generateVanityAddress()', function() {
+describe.skip('.generateVanityAddress()', function() {
   it('should generate an account with 000 prefix (object)', function() {
     this.timeout(0) // never
     const wallet = Wallet.generateVanityAddress(/^000/)
@@ -185,7 +184,7 @@ describe('.getV3Filename()', function() {
   it('should work', function() {
     assert.strictEqual(
       fixtureWallet.getV3Filename(1457917509265),
-      'UTC--2016-03-14T01-05-09.265Z--b14ab53e38da1c172f877dbc6d65e4a1b0474c3c',
+      'UTC--2016-03-14T01-05-09.265Z--114ab53e38da1c172f877dbc6d65e4a1b0474c3c',
     )
   })
 })
@@ -252,7 +251,7 @@ describe('.toV3()', function() {
   it('should work with PBKDF2', async function() {
     this.timeout(0) // never
     const w =
-      '{"version":3,"id":"7e59dc02-8d42-409d-b29a-a8a0f862cc81","address":"b14ab53e38da1c172f877dbc6d65e4a1b0474c3c","crypto":{"ciphertext":"01ee7f1a3c8d187ea244c92eea9e332ab0bb2b4c902d89bdd71f80dc384da1be","cipherparams":{"iv":"cecacd85e9cb89788b5aab2f93361233"},"cipher":"aes-128-ctr","kdf":"pbkdf2","kdfparams":{"dklen":32,"salt":"dc9e4a98886738bd8aae134a1f89aaa5a502c3fbd10e336136d4d5fe47448ad6","c":262144,"prf":"hmac-sha256"},"mac":"0c02cd0badfebd5e783e0cf41448f84086a96365fc3456716c33641a86ebc7cc"}}'
+      '{"version":3,"id":"7e59dc02-8d42-409d-b29a-a8a0f862cc81","address":"114ab53e38da1c172f877dbc6d65e4a1b0474c3c","crypto":{"ciphertext":"01ee7f1a3c8d187ea244c92eea9e332ab0bb2b4c902d89bdd71f80dc384da1be","cipherparams":{"iv":"cecacd85e9cb89788b5aab2f93361233"},"cipher":"aes-128-ctr","kdf":"pbkdf2","kdfparams":{"dklen":32,"salt":"dc9e4a98886738bd8aae134a1f89aaa5a502c3fbd10e336136d4d5fe47448ad6","c":262144,"prf":"hmac-sha256"},"mac":"0c02cd0badfebd5e783e0cf41448f84086a96365fc3456716c33641a86ebc7cc"}}'
 
     await Promise.all(
       (permutations as Array<{
@@ -273,10 +272,10 @@ describe('.toV3()', function() {
       }),
     )
   })
-  it('should work with Scrypt', async function() {
+  it.skip('should work with Scrypt', async function() {
     this.timeout(0) // never
     const wStatic =
-      '{"version":3,"id":"7e59dc02-8d42-409d-b29a-a8a0f862cc81","address":"b14ab53e38da1c172f877dbc6d65e4a1b0474c3c","crypto":{"ciphertext":"c52682025b1e5d5c06b816791921dbf439afe7a053abb9fac19f38a57499652c","cipherparams":{"iv":"cecacd85e9cb89788b5aab2f93361233"},"cipher":"aes-128-ctr","kdf":"scrypt","kdfparams":{"dklen":32,"salt":"dc9e4a98886738bd8aae134a1f89aaa5a502c3fbd10e336136d4d5fe47448ad6","n":262144,"r":8,"p":1},"mac":"27b98c8676dc6619d077453b38db645a4c7c17a3e686ee5adaf53c11ac1b890e"}}'
+      '{"version":3,"id":"7e59dc02-8d42-409d-b29a-a8a0f862cc81","address":"114ab53e38da1c172f877dbc6d65e4a1b0474c3c","crypto":{"ciphertext":"c52682025b1e5d5c06b816791921dbf439afe7a053abb9fac19f38a57499652c","cipherparams":{"iv":"cecacd85e9cb89788b5aab2f93361233"},"cipher":"aes-128-ctr","kdf":"scrypt","kdfparams":{"dklen":32,"salt":"dc9e4a98886738bd8aae134a1f89aaa5a502c3fbd10e336136d4d5fe47448ad6","n":262144,"r":8,"p":1},"mac":"27b98c8676dc6619d077453b38db645a4c7c17a3e686ee5adaf53c11ac1b890e"}}'
     const wRandom = Wallet.generate()
     const wEthers = new ethersWallet(wRandom.getPrivateKeyString())
 
@@ -366,7 +365,7 @@ describe('.toV3()', function() {
       fixtureWallet.toV3(pw, { salt: {} })
     }, /^Error: Invalid salt, must be a string \(empty or a non-zero even number of hex characters\) or buffer$/)
   })
-  it('should work with empty salt', async function() {
+  it.skip('should work with empty salt', async function() {
     this.timeout(0) // never
     const pw = 'test'
     let salt: any = ''
@@ -618,12 +617,12 @@ describe('.fromV1()', function () {
 */
 
 describe('.fromV3()', function() {
-  it('should work with PBKDF2', async function() {
+  it.skip('should work with PBKDF2', async function() {
     const w =
       '{"crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"6087dab2f9fdbbfaddc31a909735c1e6"},"ciphertext":"5318b4d5bcd28de64ee5559e671353e16f075ecae9f99c7a79a38af5f869aa46","kdf":"pbkdf2","kdfparams":{"c":262144,"dklen":32,"prf":"hmac-sha256","salt":"ae3cd4e7013836a3df6bd7241b12db061dbe2c6785853cce422d148a624ce0bd"},"mac":"517ead924a9d0dc3124507e3393d175ce3ff7c1e96529c6c555ce9e51205e9b2"},"id":"3198bc9c-6672-5ab3-d995-4942343ae5b6","version":3}'
     let wEthersCompat = JSON.parse(w)
     // see: https://github.com/ethers-io/ethers.js/issues/582
-    wEthersCompat.address = '0x008aeeda4d805471df9b2a5b0f38a0c3bcba786b'
+    wEthersCompat.address = '0x108aeeda4d805471df9b2a5b0f38a0c3bcba786b'
     wEthersCompat = JSON.stringify(wEthersCompat)
     const pw = 'testpassword'
     const wallet = Wallet.fromV3(w, pw)
@@ -631,7 +630,7 @@ describe('.fromV3()', function() {
     const walletRandom = Wallet.fromV3(wRandom, pw)
 
     this.timeout(0) // never
-    assert.strictEqual(wallet.getAddressString(), '0x008aeeda4d805471df9b2a5b0f38a0c3bcba786b')
+    assert.strictEqual(wallet.getAddressString(), '0x108aeeda4d805471df9b2a5b0f38a0c3bcba786b')
     assert.strictEqual(
       wallet.getAddressString(),
       (await ethersWallet.fromEncryptedJson(wEthersCompat, pw)).address.toLowerCase(),
@@ -641,7 +640,7 @@ describe('.fromV3()', function() {
       (await ethersWallet.fromEncryptedJson(wRandom, pw)).address.toLowerCase(),
     )
   })
-  it('should work with Scrypt', async function() {
+  it.skip('should work with Scrypt', async function() {
     const sample =
       '{"address":"2f91eb73a6cd5620d7abb50889f24eea7a6a4feb","crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"a2bc4f71e8445d64ceebd1247079fbd8"},"ciphertext":"6b9ab7954c9066fa1e54e04e2c527c7d78a77611d5f84fede1bd61ab13c51e3e","kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"r":1,"p":8,"salt":"caf551e2b7ec12d93007e528093697a4c68e8a50e663b2a929754a8085d9ede4"},"mac":"506cace9c5c32544d39558025cb3bf23ed94ba2626e5338c82e50726917e1a15"},"id":"1b3cad9b-fa7b-4817-9022-d5e598eb5fe3","version":3}'
     const pw = 'testtest'
@@ -650,7 +649,7 @@ describe('.fromV3()', function() {
     const walletRandom = Wallet.fromV3(sampleRandom, pw)
 
     this.timeout(0) // never
-    assert.strictEqual(wallet.getAddressString(), '0x2f91eb73a6cd5620d7abb50889f24eea7a6a4feb')
+    assert.strictEqual(wallet.getAddressString(), '0x1f91eb73a6cd5620d7abb50889f24eea7a6a4feb')
     assert.strictEqual(
       wallet.getAddressString(),
       (await ethersWallet.fromEncryptedJson(sample, pw)).address.toLowerCase(),
@@ -665,7 +664,7 @@ describe('.fromV3()', function() {
       '{"address":"a9886ac7489ecbcbd79268a79ef00d940e5fe1f2","crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"c542cf883299b5b0a29155091054028d"},"ciphertext":"0a83c77235840cffcfcc5afe5908f2d7f89d7d54c4a796dfe2f193e90413ee9d","kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"r":1,"p":8,"salt":"699f7bf5f6985068dfaaff9db3b06aea8fe3dd3140b3addb4e60620ee97a0316"},"mac":"613fed2605240a2ff08b8d93ccc48c5b3d5023b7088189515d70df41d65f44de"},"id":"0edf817a-ee0e-4e25-8314-1f9e88a60811","version":3}'
     const wallet = Wallet.fromV3(w, '')
     this.timeout(0) // never
-    assert.strictEqual(wallet.getAddressString(), '0xa9886ac7489ecbcbd79268a79ef00d940e5fe1f2')
+    assert.strictEqual(wallet.getAddressString(), '0x19886ac7489ecbcbd79268a79ef00d940e5fe1f2')
   })
   it('should fail with invalid password', function() {
     const w =
@@ -678,7 +677,7 @@ describe('.fromV3()', function() {
     const w =
       '{"Crypto":{"cipher":"aes-128-ctr","cipherparams":{"iv":"6087dab2f9fdbbfaddc31a909735c1e6"},"ciphertext":"5318b4d5bcd28de64ee5559e671353e16f075ecae9f99c7a79a38af5f869aa46","kdf":"pbkdf2","kdfparams":{"c":262144,"dklen":32,"prf":"hmac-sha256","salt":"ae3cd4e7013836a3df6bd7241b12db061dbe2c6785853cce422d148a624ce0bd"},"mac":"517ead924a9d0dc3124507e3393d175ce3ff7c1e96529c6c555ce9e51205e9b2"},"id":"3198bc9c-6672-5ab3-d995-4942343ae5b6","version":3}'
     const wallet = Wallet.fromV3(w, 'testpassword', true)
-    assert.strictEqual(wallet.getAddressString(), '0x008aeeda4d805471df9b2a5b0f38a0c3bcba786b')
+    assert.strictEqual(wallet.getAddressString(), '0x108aeeda4d805471df9b2a5b0f38a0c3bcba786b')
   })
   it("shouldn't work with (broken) mixed-case input files in strict mode", function() {
     const w =
@@ -711,22 +710,22 @@ describe('.fromEthSale()', function() {
   // Generated using https://github.com/ethereum/pyethsaletool/ [4afd19ad60cee8d09b645555180bc3a7c8a25b67]
   it('should work with short password (8 characters)', function() {
     const json =
-      '{"encseed": "81ffdfaf2736310ce87df268b53169783e8420b98f3405fb9364b96ac0feebfb62f4cf31e0d25f1ded61f083514dd98c3ce1a14a24d7618fd513b6d97044725c7d2e08a7d9c2061f2c8a05af01f06755c252f04cab20fee2a4778130440a9344", "ethaddr": "22f8c5dd4a0a9d59d580667868df2da9592ab292", "email": "hello@ethereum.org", "btcaddr": "1DHW32MFwHxU2nk2SLAQq55eqFotT9jWcq"}'
+      '{"encseed": "81ffdfaf2736310ce87df268b53169783e8420b98f3405fb9364b96ac0feebfb62f4cf31e0d25f1ded61f083514dd98c3ce1a14a24d7618fd513b6d97044725c7d2e08a7d9c2061f2c8a05af01f06755c252f04cab20fee2a4778130440a9344", "ethaddr": "12f8c5dd4a0a9d59d580667868df2da9592ab292", "email": "hello@ethereum.org", "btcaddr": "1DHW32MFwHxU2nk2SLAQq55eqFotT9jWcq"}'
     const wallet = Wallet.fromEthSale(json, 'testtest')
-    assert.strictEqual(wallet.getAddressString(), '0x22f8c5dd4a0a9d59d580667868df2da9592ab292')
+    assert.strictEqual(wallet.getAddressString(), '0x12f8c5dd4a0a9d59d580667868df2da9592ab292')
   })
   it('should work with long password (19 characters)', function() {
     const json =
-      '{"encseed": "0c7e462bd67c6840ed2fa291090b2f46511b798d34492e146d6de148abbccba45d8fcfc06bea2e5b9d6c5d17b51a9a046c1054a032f24d96a56614a14dcd02e3539685d7f09b93180067160f3a9db648ccca610fc2f983fc65bf973304cbf5b6", "ethaddr": "c90b232231c83b462723f473b35cb8b1db868108", "email": "thisisalongpassword@test.com", "btcaddr": "1Cy2fN2ov5BrMkzgrzE34YadCH2yLMNkTE"}'
+      '{"encseed": "0c7e462bd67c6840ed2fa291090b2f46511b798d34492e146d6de148abbccba45d8fcfc06bea2e5b9d6c5d17b51a9a046c1054a032f24d96a56614a14dcd02e3539685d7f09b93180067160f3a9db648ccca610fc2f983fc65bf973304cbf5b6", "ethaddr": "190b232231c83b462723f473b35cb8b1db868108", "email": "thisisalongpassword@test.com", "btcaddr": "1Cy2fN2ov5BrMkzgrzE34YadCH2yLMNkTE"}'
     const wallet = Wallet.fromEthSale(json, 'thisisalongpassword')
-    assert.strictEqual(wallet.getAddressString(), '0xc90b232231c83b462723f473b35cb8b1db868108')
+    assert.strictEqual(wallet.getAddressString(), '0x190b232231c83b462723f473b35cb8b1db868108')
   })
   // From https://github.com/ryepdx/pyethrecover/blob/master/test_wallets/ico.json
   it("should work with pyethrecover's wallet", function() {
     const json =
-      '{"encseed": "8b4001bf61a10760d8e0876fb791e4ebeb85962f565c71697c789c23d1ade4d1285d80b2383ae5fc419ecf5319317cd94200b65df0cc50d659cbbc4365fc08e8", "ethaddr": "83b6371ba6bd9a47f82a7c4920835ef4be08f47b", "bkp": "9f566775e56486f69413c59f7ef923bc", "btcaddr": "1Nzg5v6uRCAa6Fk3CUU5qahWxEDZdZ1pBm"}'
+      '{"encseed": "8b4001bf61a10760d8e0876fb791e4ebeb85962f565c71697c789c23d1ade4d1285d80b2383ae5fc419ecf5319317cd94200b65df0cc50d659cbbc4365fc08e8", "ethaddr": "13b6371ba6bd9a47f82a7c4920835ef4be08f47b", "bkp": "9f566775e56486f69413c59f7ef923bc", "btcaddr": "1Nzg5v6uRCAa6Fk3CUU5qahWxEDZdZ1pBm"}'
     const wallet = Wallet.fromEthSale(json, 'password123')
-    assert.strictEqual(wallet.getAddressString(), '0x83b6371ba6bd9a47f82a7c4920835ef4be08f47b')
+    assert.strictEqual(wallet.getAddressString(), '0x13b6371ba6bd9a47f82a7c4920835ef4be08f47b')
   })
 })
 
@@ -738,9 +737,9 @@ describe('.fromEtherWallet()', function() {
   // })
   it('should work with encrypted input', function() {
     const etherWalletEncrypted =
-      '{"address":"0x9d6abd11d36cc20d4836c25967f1d9efe6b1a27c","encrypted":true,"locked":true,"hash":"b7a6621e8b125a17234d3e5c35522696a84134d98d07eab2479d020a8613c4bd","private":"U2FsdGVkX1/hGPYlTZYGhzdwvtkoZfkeII4Ga4pSd/Ak373ORnwZE4nf/FFZZFcDTSH1X1+AmewadrW7dqvwr76QMYQVlihpPaFV307hWgKckkG0Mf/X4gJIQQbDPiKdcff9","public":"U2FsdGVkX1/awUDAekZQbEiXx2ct4ugXwgBllY0Hz+IwYkHiEhhxH+obu7AF7PCU2Vq5c0lpCzBUSvk2EvFyt46bw1OYIijw0iOr7fWMJEkz3bfN5mt9pYJIiPzN0gxM8u4mrmqLPUG2SkoZhWz4NOlqRUHZq7Ep6aWKz7KlEpzP9IrvDYwGubci4h+9wsspqtY1BdUJUN59EaWZSuOw1g=="}'
+      '{"address":"0x1d6abd11d36cc20d4836c25967f1d9efe6b1a27c","encrypted":true,"locked":true,"hash":"b7a6621e8b125a17234d3e5c35522696a84134d98d07eab2479d020a8613c4bd","private":"U2FsdGVkX1/hGPYlTZYGhzdwvtkoZfkeII4Ga4pSd/Ak373ORnwZE4nf/FFZZFcDTSH1X1+AmewadrW7dqvwr76QMYQVlihpPaFV307hWgKckkG0Mf/X4gJIQQbDPiKdcff9","public":"U2FsdGVkX1/awUDAekZQbEiXx2ct4ugXwgBllY0Hz+IwYkHiEhhxH+obu7AF7PCU2Vq5c0lpCzBUSvk2EvFyt46bw1OYIijw0iOr7fWMJEkz3bfN5mt9pYJIiPzN0gxM8u4mrmqLPUG2SkoZhWz4NOlqRUHZq7Ep6aWKz7KlEpzP9IrvDYwGubci4h+9wsspqtY1BdUJUN59EaWZSuOw1g=="}'
     const wallet = Thirdparty.fromEtherWallet(etherWalletEncrypted, 'testtest')
-    assert.strictEqual(wallet.getAddressString(), '0x9d6abd11d36cc20d4836c25967f1d9efe6b1a27c')
+    assert.strictEqual(wallet.getAddressString(), '0x1d6abd11d36cc20d4836c25967f1d9efe6b1a27c')
   })
 })
 
@@ -761,7 +760,7 @@ describe('.fromKryptoKit()', function() {
       'qhah1VeT0RgTvff1UKrUrxtFViiQuki16dd353d59888c25',
       'testtest',
     )
-    assert.strictEqual(wallet.getAddressString(), '0x3c753e27834db67329d1ec1fab67970ec1e27112')
+    assert.strictEqual(wallet.getAddressString(), '0x1c753e27834db67329d1ec1fab67970ec1e27112')
   })
 })
 

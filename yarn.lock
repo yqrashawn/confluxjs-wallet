@@ -160,19 +160,6 @@
   dependencies:
     "@types/node" "*"
 
-"@yqrashawn/confluxjs-util@^6.2.1":
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/@yqrashawn/confluxjs-util/-/confluxjs-util-6.2.1.tgz#f24f96b8bde9136283167c32134a63e2263e0ec0"
-  integrity sha512-pg4LL3u6dJv/ZfOAXDHKw86LNlXHr8deE5ucZP5kD6YSiDyhqzW07oZbGCbfmKNMysraG1xhxu8IIOquoqyX2A==
-  dependencies:
-    "@types/bn.js" "^4.11.3"
-    bn.js "^4.11.0"
-    create-hash "^1.1.2"
-    ethjs-util "0.1.6"
-    keccak "^3.0.0"
-    rlp "^2.2.4"
-    secp256k1 "^3.0.1"
-
 aes-js@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/aes-js/-/aes-js-3.0.0.tgz#e21df10ad6c2053295bcbb8dab40b09dbea87e4d"
@@ -398,6 +385,19 @@ caseless@~0.12.0:
   version "0.12.0"
   resolved "https://registry.yarnpkg.com/caseless/-/caseless-0.12.0.tgz#1b681c21ff84033c826543090689420d187151dc"
   integrity sha1-G2gcIf+EAzyCZUMJBolCDRhxUdw=
+
+cfx-util@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/cfx-util/-/cfx-util-0.0.1.tgz#db0df52b714e6718afab664fa3f769400610930d"
+  integrity sha512-3x73y3IzO9nv4aH1acsrzjerWfYnMcmNzLXxlCA3JZSl/qLfbwQsc8J0gEfc1YndJhjwyNTgfbeIk9bWBsdJFQ==
+  dependencies:
+    "@types/bn.js" "^4.11.3"
+    bn.js "^4.11.0"
+    create-hash "^1.1.2"
+    ethjs-util "0.1.6"
+    keccak "^3.0.0"
+    rlp "^2.2.4"
+    secp256k1 "^3.0.1"
 
 chalk@^2.0.0, chalk@^2.3.0:
   version "2.4.2"
