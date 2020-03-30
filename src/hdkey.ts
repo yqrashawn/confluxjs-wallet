@@ -1,8 +1,8 @@
-import Wallet from './index'
+import { Wallet } from './index'
 
 const HDKey = require('hdkey')
 
-export default class EthereumHDKey {
+export class EthereumHDKey {
   public static fromMasterSeed(seedBuffer: Buffer): EthereumHDKey {
     return new EthereumHDKey(HDKey.fromMasterSeed(seedBuffer))
   }

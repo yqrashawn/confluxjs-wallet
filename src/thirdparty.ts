@@ -1,7 +1,7 @@
 import * as crypto from 'crypto'
 import * as ethUtil from 'cfx-util'
 
-import Wallet from './index'
+import { Wallet } from './index'
 
 const scryptsy = require('scrypt.js')
 const utf8 = require('utf8')
@@ -265,11 +265,9 @@ function fromQuorumWallet(passphrase: string, userid: string): Wallet {
   return new Wallet(seed)
 }
 
-const Thirdparty = {
+export const Thirdparty = {
   fromEtherWallet,
   fromEtherCamp,
   fromKryptoKit,
   fromQuorumWallet,
 }
-
-export default Thirdparty

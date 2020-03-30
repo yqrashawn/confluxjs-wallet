@@ -1,8 +1,8 @@
-import Wallet from './index'
+import { Wallet } from './index'
 
 const HookedWalletEthTxSubprovider = require('web3-provider-engine/subproviders/hooked-wallet-ethtx')
 
-export default class WalletSubprovider extends HookedWalletEthTxSubprovider {
+export class WalletSubprovider extends HookedWalletEthTxSubprovider {
   constructor(wallet: Wallet, opts?: any) {
     if (!opts) {
       opts = {}

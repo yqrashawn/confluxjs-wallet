@@ -223,7 +223,7 @@ interface EthSaleKeystore {
 
 // wallet implementation
 
-export default class Wallet {
+export class Wallet {
   constructor(
     private readonly privateKey?: Buffer | undefined,
     private publicKey: Buffer | undefined = undefined,
