@@ -311,11 +311,6 @@ browserify-aes@^1.0.6:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-bs58@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/bs58/-/bs58-2.0.1.tgz#55908d58f1982aba2008fa1bed8f91998a29bf8d"
-  integrity sha1-VZCNWPGYKrogCPob7Y+RmYopv40=
-
 bs58@^4.0.0:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/bs58/-/bs58-4.0.1.tgz#be161e76c354f6f788ae4071f63f34e8c4f0a42a"
@@ -430,14 +425,6 @@ cliui@^5.0.0:
     strip-ansi "^5.2.0"
     wrap-ansi "^5.1.0"
 
-coinstring@^2.0.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/coinstring/-/coinstring-2.3.0.tgz#cdb63363a961502404a25afb82c2e26d5ff627a4"
-  integrity sha1-zbYzY6lhUCQEolr7gsLibV/2J6Q=
-  dependencies:
-    bs58 "^2.0.1"
-    create-hash "^1.1.1"
-
 color-convert@^1.9.0:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
@@ -521,7 +508,7 @@ cp-file@^6.2.0:
     pify "^4.0.1"
     safe-buffer "^5.0.1"
 
-create-hash@^1.1.0, create-hash@^1.1.1, create-hash@^1.1.2, create-hash@^1.2.0:
+create-hash@^1.1.0, create-hash@^1.1.2, create-hash@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/create-hash/-/create-hash-1.2.0.tgz#889078af11a63756bcfb59bd221996be3a9ef196"
   integrity sha512-z00bCGNHDG8mHAkP7CtT1qVu+bFQUPjYq/4Iv3C3kWjTFV10zIjfSoeqXo9Asws8gwSHDGj/hl2u4OGIjapeCg==
@@ -912,12 +899,12 @@ hasha@^3.0.0:
   dependencies:
     is-stream "^1.0.1"
 
-hdkey@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/hdkey/-/hdkey-1.1.1.tgz#c2b3bfd5883ff9529b72f2f08b28be0972a9f64a"
-  integrity sha512-DvHZ5OuavsfWs5yfVJZestsnc3wzPvLWNk6c2nRUfo6X+OtxypGt20vDDf7Ba+MJzjL3KS1og2nw2eBbLCOUTA==
+hdkey@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/hdkey/-/hdkey-1.1.2.tgz#c60f9cf6f90fbf24a8a52ea06893f36a0108cd3e"
+  integrity sha512-PTQ4VKu0oRnCrYfLp04iQZ7T2Cxz0UsEXYauk2j8eh6PJXCpbXuCFhOmtIFtbET0i3PMWmHN9J11gU8LEgUljQ==
   dependencies:
-    coinstring "^2.0.0"
+    bs58check "^2.1.2"
     safe-buffer "^5.1.1"
     secp256k1 "^3.0.1"
 
