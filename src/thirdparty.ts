@@ -1,5 +1,5 @@
 import * as crypto from 'crypto'
-import * as ethUtil from 'cfx-util'
+import * as cfxUtil from 'cfx-util'
 
 import { Wallet } from './index'
 
@@ -163,7 +163,7 @@ function fromEtherWallet(input: string | EtherWalletOptions, password: string): 
 }
 
 function fromEtherCamp(passphrase: string): Wallet {
-  return new Wallet(ethUtil.keccak256(Buffer.from(passphrase)))
+  return new Wallet(cfxUtil.keccak256(Buffer.from(passphrase)))
 }
 
 function fromKryptoKit(entropy: string, password: string): Wallet {
@@ -203,13 +203,13 @@ function fromKryptoKit(entropy: string, password: string): Wallet {
 
   let privateKey: Buffer
   if (type === 'd') {
-    privateKey = ethUtil.sha256(entropy)
+    privateKey = cfxUtil.sha256(entropy)
   } else if (type === 'q') {
     if (typeof password !== 'string') {
       throw new Error('Password required')
     }
 
-    const encryptedSeed = ethUtil.sha256(Buffer.from(entropy.slice(0, 30)))
+    const encryptedSeed = cfxUtil.sha256(Buffer.from(entropy.slice(0, 30)))
     const checksum = entropy.slice(30, 46)
 
     const salt = kryptoKitBrokenScryptSeed(encryptedSeed)
@@ -237,8 +237,8 @@ function fromKryptoKit(entropy: string, password: string): Wallet {
     if (checksum.length > 0) {
       if (
         checksum !==
-        ethUtil
-          .sha256(ethUtil.sha256(privateKey))
+        cfxUtil
+          .sha256(cfxUtil.sha256(privateKey))
           .slice(0, 8)
           .toString('hex')
       ) {

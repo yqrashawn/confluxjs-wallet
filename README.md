@@ -1,17 +1,11 @@
 # ethereumjs-wallet
 
-[![NPM Package](https://img.shields.io/npm/v/ethereumjs-wallet.svg?style=flat-square)](https://www.npmjs.org/package/ethereumjs-wallet)
-[![Build Status](https://travis-ci.org/ethereumjs/ethereumjs-wallet.svg?branch=master)](https://travis-ci.org/ethereumjs/ethereumjs-wallet)
-[![Coverage Status](https://img.shields.io/coveralls/ethereumjs/ethereumjs-wallet.svg?style=flat-square)](https://coveralls.io/r/ethereumjs/ethereumjs-wallet)
-[![Gitter](https://img.shields.io/gitter/room/ethereum/ethereumjs-lib.svg?style=flat-square)](https://gitter.im/ethereum/ethereumjs-lib) or #ethereumjs on freenode
+[![NPM Package](https://img.shields.io/npm/v/cfx-wallet.svg?style=flat-square)](https://www.npmjs.org/package/ethereumjs-wallet)
+[![Build Status](https://travis-ci.org/yqrashawn/confluxjs-wallet.svg?branch=master)](https://travis-ci.org/ethereumjs/ethereumjs-wallet)
 
-A lightweight wallet implementation. At the moment it supports key creation and conversion between various formats.
+Conflux version of ethereumjs-wallet. A lightweight wallet implementation. At the moment it supports key creation and conversion between various formats.
 
 It is complemented by the following packages:
-
-- [ethereumjs-tx](https://github.com/ethereumjs/ethereumjs-tx) to sign transactions
-- [ethereumjs-icap](https://github.com/ethereumjs/ethereumjs-icap) to manipulate ICAP addresses
-- [store.js](https://github.com/marcuswestin/store.js) to use browser storage
 
 Motivations are:
 
@@ -135,10 +129,6 @@ The following settings are favoured by the Go Ethereum implementation and we def
 - `r`: `8`
 - `p`: `1`
 - `cipher`: `aes-128-ctr`
-
-# EthereumJS
-
-See our organizational [documentation](https://ethereumjs.readthedocs.io) for an introduction to `EthereumJS` as well as information on current standards and best practices.
 
 If you want to join for work or do improvements on the libraries have a look at our [contribution guidelines](https://ethereumjs.readthedocs.io/en/latest/contributing.html).
 

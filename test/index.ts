@@ -1,6 +1,6 @@
 /* tslint:disable no-invalid-this */
 import * as assert from 'assert'
-// import * as ethUtil from 'cfx-util'
+// import * as cfxUtil from 'cfx-util'
 import { Wallet as ethersWallet } from 'ethers'
 
 const zip = require('lodash.zip')
@@ -156,10 +156,10 @@ describe('.generate()', function() {
     assert.strictEqual(Wallet.generate().getPrivateKey().length, 32)
   })
   // it.skip('should generate an account compatible with ICAP Direct', function() {
-  //   const max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
+  //   const max = new cfxUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
   //   const wallet = Wallet.generate(true)
   //   assert.strictEqual(wallet.getPrivateKey().length, 32)
-  //   assert.strictEqual(new ethUtil.BN(wallet.getAddress()).lte(max), true)
+  //   assert.strictEqual(new cfxUtil.BN(wallet.getAddress()).lte(max), true)
   // })
 })
 

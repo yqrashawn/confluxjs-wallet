@@ -1,5 +1,5 @@
 import * as crypto from 'crypto'
-import * as ethUtil from 'cfx-util'
+import * as cfxUtil from 'cfx-util'
 
 const bs58check = require('bs58check')
 const randomBytes = require('randombytes')
@@ -232,11 +232,11 @@ export class Wallet {
       throw new Error('Cannot supply both a private and a public key to the constructor')
     }
 
-    if (privateKey && !ethUtil.isValidPrivate(privateKey)) {
+    if (privateKey && !cfxUtil.isValidPrivate(privateKey)) {
       throw new Error('Private key does not satisfy the curve requirements (ie. it is invalid)')
     }
 
-    if (publicKey && !ethUtil.isValidPublic(publicKey)) {
+    if (publicKey && !cfxUtil.isValidPublic(publicKey)) {
       throw new Error('Invalid public key')
     }
   }
@@ -246,10 +246,10 @@ export class Wallet {
   public static generate(): // icapDirect: boolean = false
   Wallet {
     // if (icapDirect) {
-    //   const max = new ethUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
+    //   const max = new cfxUtil.BN('088f924eeceeda7fe92e1f5b0fffffffffffffff', 16)
     //   while (true) {
     //     const privateKey = randomBytes(32)
-    //     if (new ethUtil.BN(ethUtil.privateToAddress(privateKey)).lte(max)) {
+    //     if (new cfxUtil.BN(cfxUtil.privateToAddress(privateKey)).lte(max)) {
     //       return new Wallet(privateKey)
     //     }
     //   }
@@ -265,7 +265,7 @@ export class Wallet {
 
     while (true) {
       const privateKey = randomBytes(32)
-      const address = ethUtil.privateToAddress(privateKey)
+      const address = cfxUtil.privateToAddress(privateKey)
 
       if (pattern.test(address.toString('hex'))) {
         return new Wallet(privateKey)
@@ -275,7 +275,7 @@ export class Wallet {
 
   public static fromPublicKey(publicKey: Buffer, nonStrict: boolean = false): Wallet {
     if (nonStrict) {
-      publicKey = ethUtil.importPublic(publicKey)
+      publicKey = cfxUtil.importPublic(publicKey)
     }
     return new Wallet(undefined, publicKey)
   }
@@ -324,14 +324,14 @@ export class Wallet {
     )
 
     const ciphertext = Buffer.from(json.Crypto.CipherText, 'hex')
-    const mac = ethUtil.keccak256(Buffer.concat([derivedKey.slice(16, 32), ciphertext]))
+    const mac = cfxUtil.keccak256(Buffer.concat([derivedKey.slice(16, 32), ciphertext]))
     if (mac.toString('hex') !== json.Crypto.MAC) {
       throw new Error('Key derivation failed - possibly wrong passphrase')
     }
 
     const decipher = crypto.createDecipheriv(
       'aes-128-cbc',
-      ethUtil.keccak256(derivedKey.slice(0, 16)).slice(0, 16),
+      cfxUtil.keccak256(derivedKey.slice(0, 16)).slice(0, 16),
       Buffer.from(json.Crypto.IV, 'hex'),
     )
     const seed = runCipherBuffer(decipher, ciphertext)
@@ -382,7 +382,7 @@ export class Wallet {
     }
 
     const ciphertext = Buffer.from(json.crypto.ciphertext, 'hex')
-    const mac = ethUtil.keccak256(Buffer.concat([derivedKey.slice(16, 32), ciphertext]))
+    const mac = cfxUtil.keccak256(Buffer.concat([derivedKey.slice(16, 32), ciphertext]))
     if (mac.toString('hex') !== json.crypto.mac) {
       throw new Error('Key derivation failed - possibly wrong passphrase')
     }
@@ -414,7 +414,7 @@ export class Wallet {
     const decipher = crypto.createDecipheriv('aes-128-cbc', derivedKey, encseed.slice(0, 16))
     const seed = runCipherBuffer(decipher, encseed.slice(16))
 
-    const wallet = new Wallet(ethUtil.keccak256(seed))
+    const wallet = new Wallet(cfxUtil.keccak256(seed))
     if (wallet.getAddress().toString('hex') !== json.ethaddr) {
       throw new Error('Decoded key mismatch - possibly wrong passphrase')
     }
@@ -425,7 +425,7 @@ export class Wallet {
 
   private get pubKey(): Buffer {
     if (!keyExists(this.publicKey)) {
-      this.publicKey = ethUtil.privateToPublic(this.privateKey as Buffer)
+      this.publicKey = cfxUtil.privateToPublic(this.privateKey as Buffer)
     }
     return this.publicKey
   }
@@ -445,7 +445,7 @@ export class Wallet {
   }
 
   public getPrivateKeyString(): string {
-    return ethUtil.bufferToHex(this.privKey)
+    return cfxUtil.bufferToHex(this.privKey)
   }
 
   // tslint:disable-next-line
@@ -454,19 +454,19 @@ export class Wallet {
   }
 
   public getPublicKeyString(): string {
-    return ethUtil.bufferToHex(this.getPublicKey())
+    return cfxUtil.bufferToHex(this.getPublicKey())
   }
 
   public getAddress(): Buffer {
-    return ethUtil.publicToAddress(this.pubKey)
+    return cfxUtil.publicToAddress(this.pubKey)
   }
 
   public getAddressString(): string {
-    return ethUtil.bufferToHex(this.getAddress())
+    return cfxUtil.bufferToHex(this.getAddress())
   }
 
   public getChecksumAddressString(): string {
-    return ethUtil.toChecksumAddress(this.getAddressString())
+    return cfxUtil.toChecksumAddress(this.getAddressString())
   }
 
   public toV3(password: string, opts?: Partial<V3Params>): V3Keystore {
@@ -515,7 +515,7 @@ export class Wallet {
     }
 
     const ciphertext = runCipherBuffer(cipher, this.privKey)
-    const mac = ethUtil.keccak256(
+    const mac = cfxUtil.keccak256(
       Buffer.concat([derivedKey.slice(16, 32), Buffer.from(ciphertext)]),
     )
 
