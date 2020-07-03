@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "10"
+  - "11"
 addons:
   apt:
     sources:
@@ -12,16 +12,15 @@ branches:
   # Pull request automation is not constrained to this set of branches.
   only:
   - master
+  - alpha
+  - beta
 env:
   matrix:
-    - CXX=g++-4.8 TEST_SUITE=test
+    - CXX=g++-4.8
 matrix:
   fast_finish: true
   include:
     - os: linux
-      node_js: "10"
-      env: CXX=g++-4.8 TEST_SUITE=coveralls
-    - os: linux
-      node_js: "10"
-      env: CXX=g++-4.8 TEST_SUITE=lint
-script: npm run $TEST_SUITE
+      node_js: "11"
+      env: CXX=g++-4.8
+script: yarn lint && yarn test && yarn coveralls && npx semantic-release
